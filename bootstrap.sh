@@ -25,8 +25,10 @@ helm install todoapp helm-chart/todoapp -f helm-chart/todoapp/values.yaml
 
 kubectl wait --namespace mysql \
   --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=90s
+  --selector=app=mysql \
+  --timeout=180s
+
+kubectl apply -f pod.yml
 
 # Save output
 kubectl get all,cm,secret,ing -A > output.log

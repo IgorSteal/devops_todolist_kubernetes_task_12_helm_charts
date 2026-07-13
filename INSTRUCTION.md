@@ -39,3 +39,10 @@ Expected: каждый под на отдельной ноде с лейблом
 helm list -A
 ```
 Expected: статус `deployed`
+
+### 7. Standalone Pod running
+
+```bash
+kubectl get pod todoapp-pod -n todoapp -o wide
+```
+Expected: STATUS `Running`, запущен на ноде с лейблом `app=todoapp`

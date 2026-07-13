@@ -72,10 +72,10 @@ spec:
           claimName: {{ .Chart.Name}}-pvc-data
       - name: app-secrets-volume
         secret:
-          secretName: app-secret
+          secretName: {{ .Chart.Name}}-app-secret
       - name: app-config-volume
         configMap:
-          name: app-config
+          name: {{ .Chart.Name}}-app-config
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
