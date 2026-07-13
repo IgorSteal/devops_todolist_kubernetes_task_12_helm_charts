@@ -19,9 +19,9 @@ kubectl wait --namespace ingress-nginx \
   --timeout=90s
 
 # Deploy helm chart
-helm dependency update helm-chart/todoapp
+helm dependency update .infrastructure/helm-chart/todoapp
 
-helm install todoapp helm-chart/todoapp -f helm-chart/todoapp/values.yaml
+helm install todoapp .infrastructure/helm-chart/todoapp -f .infrastructure/helm-chart/todoapp/values.yaml
 
 kubectl wait --namespace mysql \
   --for=condition=ready pod \
@@ -31,4 +31,6 @@ kubectl wait --namespace mysql \
 kubectl apply -f pod.yml
 
 # Save output
+
+sleep 180
 kubectl get all,cm,secret,ing -A > output.log
