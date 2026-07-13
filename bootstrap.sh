@@ -9,7 +9,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 
 kubectl patch deployment -n ingress-nginx ingress-nginx-controller --type=json \
   -p='[{"op":"add","path":"/spec/template/spec/nodeSelector/ingress-ready","value":"true"}]'
-  
+
 # kubectl apply -f .infrastructure/ingress/ingress.yml
 
 
@@ -22,6 +22,11 @@ kubectl wait --namespace ingress-nginx \
 helm dependency update helm-chart/todoapp
 
 helm install todoapp helm-chart/todoapp -f helm-chart/todoapp/values.yaml
+
+kubectl wait --namespace mysql \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
 
 # Save output
 kubectl get all,cm,secret,ing -A > output.log
